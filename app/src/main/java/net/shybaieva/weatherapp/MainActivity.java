@@ -151,6 +151,49 @@ public class MainActivity extends AppCompatActivity   {
             try{
                 JSONObject jsonObject = new JSONObject (result);
 
+                String weatherData = jsonObject.getString("weather");
+                Log.i("result", weatherData);
+                JSONArray jsonArray = new JSONArray(weatherData);
+
+                String weather="";
+
+                for(int i = 0; i < jsonArray.length(); i++){
+                    JSONObject tempArray = jsonArray.getJSONObject(i);
+                    weather = tempArray.getString("main");
+                }
+                Log.i("result", weather);
+                weatherTV.setText(weather);
+                switch (weather){
+                    case "Clouds":{
+                        weatherImg.setImageResource(R.drawable.cloud);
+                        break;
+                    }
+                    case "Rain":{
+                        weatherImg.setImageResource(R.drawable.rain);
+                        break;
+                    }
+                    case "Clear":{
+                        weatherImg.setImageResource(R.drawable.sunny);
+                        break;
+                    }
+                    case "Snow":{
+                        weatherImg.setImageResource(R.drawable.snowing);
+                        break;
+                    }
+                    case "Thunderstorm":{
+                        weatherImg.setImageResource(R.drawable.thunder);
+                        break;
+                    }
+                    case "Drizzle":{
+                        weatherImg.setImageResource(R.drawable.drizzle);
+                        break;
+                    }
+                    default:{
+                        weatherImg.setImageResource(R.drawable.smog);
+                        break;
+                    }
+                }
+                weatherImg.setVisibility(View.VISIBLE);
 
                 Double temp = jsonObject.getJSONObject("main").getDouble("temp");
                 tv.setText(temp.toString() + "°C");
@@ -169,31 +212,6 @@ public class MainActivity extends AppCompatActivity   {
                 Double pressure = jsonObject.getJSONObject("main").getDouble("pressure");
                 pressureTV.setText(pressure.toString());
                 pressureImg.setVisibility(View.VISIBLE);
-
-               /* JSONArray jsonArray = new JSONArray(result);
-                */
-
-               String weatherData = jsonObject.getString("weather");
-               Log.i("result", weatherData);
-               JSONArray jsonArray = new JSONArray(weatherData);
-
-                String weather="";
-
-                for(int i = 0; i < jsonArray.length(); i++){
-                    JSONObject tempArray = jsonArray.getJSONObject(i);
-                    weather = tempArray.getString("main");
-                }
-                Log.i("result", weather);
-                weatherTV.setText(weather);
-                switch (weather){
-                    case "Clouds":{
-                        weatherImg.setImageResource(R.drawable.cloud);
-                        weatherImg.setVisibility(View.VISIBLE);
-                        break;
-                    }
-                }
-
-
             }
             catch (Exception ex){
                 ex.printStackTrace();
