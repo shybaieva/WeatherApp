@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity   {
         protected void onPostExecute(String s) {
             try{
                 JSONObject jsonObject = new JSONObject (result);
-                //TODO weather and weather ico
 
 
                 Double temp = jsonObject.getJSONObject("main").getDouble("temp");
